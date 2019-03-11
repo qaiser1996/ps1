@@ -24,14 +24,14 @@ public class SocialNetworkTest {
     private static final Instant d5 = Instant.parse("2016-02-17T11:47:00Z");
     private static final Instant d6 = Instant.parse("2016-02-17T10:47:00Z");
 
-    private static final Tweet tweet1 = new Tweet(1, "xyz", "is it ok to talk about religion so much?", d1);
-    private static final Tweet tweet2 = new Tweet(2, "jkl", "hello this is lab 5 of SC", d2);
-    private static final Tweet tweet3 = new Tweet(3, "abc", "can we please go home?", d3);
-    private static final Tweet tweet4 = new Tweet(4, "abc", "@qaiser is this another user?",
+    private static final Tweet tweet1 = new Tweet(1, "jkl", "is it reasonable to talk about religion so much?", d1);
+    private static final Tweet tweet2 = new Tweet(2, "lmn", "Welcome to lab 5 SC", d2);
+    private static final Tweet tweet3 = new Tweet(3, "abc", "can we please pass this test??", d3);
+    private static final Tweet tweet4 = new Tweet(4, "abc2", "@qaiser is this another one of these amazing tests?",
             d4);
-    private static final Tweet tweet5 = new Tweet(5, "abc2", "@qaiser @alishba hello how are you?",
+    private static final Tweet tweet5 = new Tweet(5, "xyz", "@qaiser @alishba welcome back",
             d5);
-    private static final Tweet tweet6 = new Tweet(6, "abc2", "@qaiser @muneeb hello how good are you?",
+    private static final Tweet tweet6 = new Tweet(6, "xyz2", "@qaiser @muneeb welcome back have a great time",
             d6);
 
 
@@ -63,13 +63,6 @@ public class SocialNetworkTest {
     }
     
     @Test
-    public void testGuessFollowsGraphUsernameDifferentCases(){
-        Map<String, Set<String>> followsGraph = new HashMap<>();
-        SocialNetwork.guessFollowsGraph(Arrays.asList(tweet4, tweet5, tweet6));
-        assertTrue(followsGraph.get("alishba").contains("qaiser"));
-    }
-    
-    @Test
     public void testInfluencersSixTweets(){
         Map<String,Set<String>> followsGraph= SocialNetwork.guessFollowsGraph(Arrays.asList(tweet1,tweet2,tweet3,tweet4,tweet5,tweet6));
         List<String> influencers= SocialNetwork.influencers(followsGraph);
@@ -79,10 +72,9 @@ public class SocialNetworkTest {
 
     @Test
     public void testInfluencersSingleTweetnoInfluence(){
-        Map<String,Set<String>> followsGraph= SocialNetwork.guessFollowsGraph(Arrays.asList(tweet1));
-        List<String> influencers= SocialNetwork.influencers(followsGraph);
-        assertEquals(influencers.get(0),"qaiser");
-                  
+	        Map<String,Set<String>> followsGraph= SocialNetwork.guessFollowsGraph(Arrays.asList(tweet1));
+	        List<String> influencers= SocialNetwork.influencers(followsGraph);
+	        assertTrue(influencers.isEmpty());    
         }
 
     @Test
