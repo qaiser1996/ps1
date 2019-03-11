@@ -3,6 +3,9 @@
  */
 package twitter;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -54,7 +57,35 @@ public class SocialNetwork {
      *         descending order of follower count.
      */
     public static List<String> influencers(Map<String, Set<String>> followsGraph) {
-        throw new RuntimeException("not implemented");
+        List<String> InfluencerList = new ArrayList<String>();
+        Map<String, Integer> influencers = new HashMap<String, Integer>();
+        int count;
+        for (Set<String> follows : followsGraph.values()){
+            for(String i: follows) {
+                if(influencers.containsKey(i)) {
+                    count = influencers.get(i) + 1;
+                    influencers.put(i.toLowerCase(), count);
+                }
+                else {
+                    influencers.put(i.toLowerCase(), 1);
+                }
+                
+            }
+        }
+        
+        
+        //sorting influencers
+        while (!influencers.isEmpty()) {
+            int top = Collections.max(influencers.values());
+            for (String name :  influencers.keySet()) {
+                if (influencers.get(name).equals(top)) {
+                    InfluencerList.add(name);
+                    InfluencerList.remove(name);
+                    break;
+                }
+            }
+        }
+        return InfluencerList;
     }
 
 }
